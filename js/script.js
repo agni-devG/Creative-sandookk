@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const nav = document.querySelector("#nav");
     const menuButton = document.querySelector(".phone-menu-btn");
     const phoneMenu = document.querySelector(".phone-nav-menu");
-    const phoneNavQuery = window.matchMedia("(max-width: 400px)");
+    const phoneNavQuery = window.matchMedia("(max-width: 424px)");
 
     if (nav && menuButton && phoneMenu) {
         menuButton.setAttribute("aria-haspopup", "dialog");
