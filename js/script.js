@@ -116,19 +116,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const cards = Array.from(document.querySelectorAll(".featured-work-card"));
     const prevButton = document.querySelector(".featured-work-prev");
     const nextButton = document.querySelector(".featured-work-next");
+    const enableScrollCarousel = true;
 
     if (!carousel || !track || cards.length === 0 || !window.gsap) {
         return;
     }
 
     if (window.Draggable) {
+        
         gsap.registerPlugin(Draggable);
+    }
+
+    if (window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
     }
 
     let activeIndex = 0;
     let cardStep = 0;
     let minX = 0;
     let dragInstance;
+    let scrollTween;
     let dragStartIndex = activeIndex;
     let dragStartX = 0;
 
@@ -141,6 +148,10 @@ document.addEventListener("DOMContentLoaded", () => {
         minX = Math.min(0, carousel.offsetWidth - track.scrollWidth);
     }
 
+    function getNavHeight() {
+        return nav?.offsetHeight || 0;
+    }
+
     function setButtonState() {
         if (prevButton) {
             prevButton.disabled = activeIndex === 0;
@@ -151,7 +162,45 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function setActiveIndexFromX(x) {
+        if (!cardStep) {
+            return;
+        }
+
+        activeIndex = clamp(0, cards.length - 1, Math.round(Math.abs(x) / cardStep));
+        setButtonState();
+    }
+
+    function scrollToCard(index) {
+        if (!scrollTween?.scrollTrigger) {
+            return false;
+        }
+
+        measureCarousel();
+        activeIndex = clamp(0, cards.length - 1, index);
+
+        const trigger = scrollTween.scrollTrigger;
+        const progress = cards.length <= 1 ? 0 : activeIndex / (cards.length - 1);
+        const targetScroll = trigger.start + ((trigger.end - trigger.start) * progress);
+
+        gsap.to({ scrollY: window.scrollY }, {
+            scrollY: targetScroll,
+            duration: 0.75,
+            ease: "power3.out",
+            onUpdate() {
+                window.scrollTo(0, this.targets()[0].scrollY);
+            }
+        });
+
+        setButtonState();
+        return true;
+    }
+
     function goToCard(index) {
+        if (scrollToCard(index)) {
+            return;
+        }
+
         measureCarousel();
         activeIndex = clamp(0, cards.length - 1, index);
 
@@ -176,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function createDrag() {
-        if (!window.Draggable) {
+        if (!window.Draggable || scrollTween) {
             return;
         }
 
@@ -216,14 +265,64 @@ document.addEventListener("DOMContentLoaded", () => {
         })[0];
     }
 
+    function createScrollCarousel() {
+        if (!window.ScrollTrigger) {
+            return false;
+        }
+
+        if (scrollTween) {
+            scrollTween.scrollTrigger?.kill();
+            scrollTween.kill();
+        }
+
+        measureCarousel();
+        const scrollDistance = Math.abs(minX);
+
+        if (scrollDistance <= 0) {
+            return false;
+        }
+
+        scrollTween = gsap.to(track, {
+            x: () => minX,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#featured-work",
+                start: "bottom bottom",
+                end: () => {
+                    measureCarousel();
+                    return `+=${Math.abs(minX)}`;
+                },
+                pin: true,
+                scrub: 1,
+                invalidateOnRefresh: true,
+                onUpdate() {
+                    setActiveIndexFromX(gsap.getProperty(track, "x"));
+                },
+                onRefresh() {
+                    measureCarousel();
+                }
+            }
+        });
+
+        setButtonState();
+        return true;
+    }
+
     prevButton?.addEventListener("click", () => goToCard(activeIndex - 1));
     nextButton?.addEventListener("click", () => goToCard(activeIndex + 1));
 
     window.addEventListener("resize", () => {
+        if (scrollTween) {
+            ScrollTrigger.refresh();
+            return;
+        }
+
         createDrag();
         goToCard(activeIndex);
     });
 
-    createDrag();
-    goToCard(0);
+    if (!enableScrollCarousel || !createScrollCarousel()) {
+        createDrag();
+        goToCard(0);
+    }
 });
