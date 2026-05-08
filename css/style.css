@@ -1379,6 +1379,9 @@ input{
     }
 
     .phone-menu-btn{
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: end;
         display: inline-flex;
         min-height: 4.6053vh;
         padding: 1.1513vh 2.8167vw;
@@ -1708,7 +1711,7 @@ input{
     .banner-img img{
         position: absolute;
         left: 55%;
-        bottom: -28.7829vh;
+        bottom: -41.1765vw;
         width: 80vw;
         max-width: none;
         transform: translateX(-50%) rotate(-18deg);
