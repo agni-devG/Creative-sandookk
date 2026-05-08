@@ -1,23 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const brandBands = Array.from(document.querySelectorAll(".brands-band"));
-    const brandOrders = [
-        null,
-        [13, 4, 18, 1, 16, 7, 21, 10, 2, 19, 5, 14, 0, 11, 20, 6, 15, 8, 3, 17, 9, 12],
-        [20, 6, 12, 2, 17, 9, 0, 15, 5, 21, 8, 13, 3, 18, 10, 1, 16, 7, 19, 4, 11, 14]
-    ];
 
-    brandBands.forEach((band, bandIndex) => {
-        const logos = Array.from(band.querySelectorAll(".brand-logo"));
-        const order = brandOrders[bandIndex];
-
-        if (order) {
-            order.forEach((logoIndex) => {
-                if (logos[logoIndex]) {
-                    band.appendChild(logos[logoIndex]);
-                }
-            });
-        }
-
+    brandBands.forEach((band) => {
         Array.from(band.querySelectorAll(".brand-logo")).forEach((logo) => {
             const clone = logo.cloneNode(true);
 
