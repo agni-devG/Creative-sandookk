@@ -1,4 +1,105 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const nav = document.querySelector("#nav");
+    const menuButton = document.querySelector(".phone-menu-btn");
+    const phoneMenu = document.querySelector(".phone-nav-menu");
+    const phoneNavQuery = window.matchMedia("(max-width: 400px)");
+
+    if (nav && menuButton && phoneMenu) {
+        menuButton.setAttribute("aria-haspopup", "dialog");
+        menuButton.setAttribute("aria-expanded", "false");
+
+        const closeButton = phoneMenu.querySelector(".phone-nav-close");
+        const phoneLinks = Array.from(phoneMenu.querySelectorAll(".phone-nav-link"));
+        let menuOpen = false;
+
+        if (window.gsap) {
+            gsap.set(phoneMenu, { x: "-100vw" });
+        }
+
+        function animateMenuOpen() {
+            menuOpen = true;
+            phoneMenu.setAttribute("aria-hidden", "false");
+            menuButton.setAttribute("aria-expanded", "true");
+            phoneMenu.classList.add("is-open");
+            document.body.classList.add("phone-menu-open");
+
+            if (!window.gsap) {
+                return;
+            }
+
+            gsap.killTweensOf([phoneMenu, phoneLinks]);
+            gsap.set(phoneMenu, { x: "-100vw" });
+            gsap.set(phoneLinks, { x: "-10vw", autoAlpha: 0 });
+
+            gsap.timeline()
+                .to(phoneMenu, {
+                    x: "0vw",
+                    duration: 0.7,
+                    ease: "power3.out"
+                })
+                .to(phoneLinks, {
+                    x: 0,
+                    autoAlpha: 1,
+                    duration: 0.48,
+                    stagger: 0.08,
+                    ease: "power3.out"
+                }, "-=0.32");
+        }
+
+        function animateMenuClose() {
+            menuOpen = false;
+            menuButton.setAttribute("aria-expanded", "false");
+            document.body.classList.remove("phone-menu-open");
+
+            if (!window.gsap) {
+                phoneMenu.classList.remove("is-open");
+                phoneMenu.setAttribute("aria-hidden", "true");
+                return;
+            }
+
+            gsap.killTweensOf([phoneMenu, phoneLinks]);
+            gsap.to(phoneMenu, {
+                x: "-100vw",
+                duration: 0.48,
+                ease: "power3.in",
+                onComplete() {
+                    phoneMenu.classList.remove("is-open");
+                    phoneMenu.setAttribute("aria-hidden", "true");
+                }
+            });
+        }
+
+        menuButton.addEventListener("click", () => {
+            if (menuOpen) {
+                animateMenuClose();
+                return;
+            }
+
+            animateMenuOpen();
+        });
+
+        closeButton?.addEventListener("click", animateMenuClose);
+        phoneLinks.forEach((link) => link.addEventListener("click", animateMenuClose));
+
+        window.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && menuOpen) {
+                animateMenuClose();
+            }
+        });
+
+        function handlePhoneNavChange(event) {
+            if (!event.matches && menuOpen) {
+                animateMenuClose();
+            }
+        }
+
+        if (phoneNavQuery.addEventListener) {
+            phoneNavQuery.addEventListener("change", handlePhoneNavChange);
+        } else if (phoneNavQuery.addListener) {
+            phoneNavQuery.addListener(handlePhoneNavChange);
+        }
+    }
+
     const brandBands = Array.from(document.querySelectorAll(".brands-band"));
 
     brandBands.forEach((band) => {
