@@ -1352,7 +1352,7 @@ input{
     }
 }
 
-@media (max-width: 424px){
+@media (max-width: 470px){
     :root{
         --nav-height: 10.8553vh;
         --page-gutter: 1.8778vw;
