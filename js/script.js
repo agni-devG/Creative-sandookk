@@ -138,7 +138,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     start: () => `top top+=${getNavHeight()}`,
                     pin: true,
                     scrub: 1,
-                    markers: true,
                     end: getFeaturedScrollEnd,
                     invalidateOnRefresh: true
                 }
