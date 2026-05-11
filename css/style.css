@@ -16,6 +16,7 @@
     --hero-heading-desk: 34.72vw;
     --page-gutter: 1.1718vw;
     --footer-gradient:linear-gradient(0deg,rgba(6, 14, 28, 1) 34%, rgba(6, 14, 28, 0) 100%);
+    --featured-work-height: calc(100vh - var(--nav-height));
 }
 
 *{
@@ -400,7 +401,9 @@ input{
 /* FEATURED WORK SECTION */
 
 #featured-work{
-    height: calc(100vh - var(--nav-height));
+    height: var(--featured-work-height);
+    min-height: var(--featured-work-height);
+    max-height: var(--featured-work-height);
 }
 
 .featured-work-wrapper{
@@ -424,7 +427,7 @@ input{
 }
 
 .featured-head{
-    font-size: 12vw;
+    font-size: 10vw;
     font-weight: 900;
     text-transform: uppercase;
     font-family: var(--head-font);
@@ -1211,7 +1214,7 @@ input{
     }
 
     .featured-work-wrapper{
-        height: auto;
+        height: 100%;
         padding: 2.9605vh var(--page-gutter) 3.9473vh;
     }
 
@@ -1577,7 +1580,7 @@ input{
     }
 
     .featured-work-wrapper{
-        height: auto;
+        height: 100%;
         padding: 3.6185vh 3.756vw 4.6053vh;
     }
 
@@ -1601,14 +1604,15 @@ input{
 
     .featured-work-carousel{
         height: auto;
-        flex: 0 0 auto;
+        flex: 1 1 auto;
+        min-height: 0;
     }
 
     .featured-work-card{
         flex-direction: column;
         gap: 6.5727vw;
         flex-basis: calc(100vw - 7.5116vw);
-        height: auto;
+        height: 100%;
     }
 
     .featured-work-img{
