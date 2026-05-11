@@ -111,218 +111,65 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    const carousel = document.querySelector(".featured-work-carousel");
-    const track = document.querySelector(".featured-work-cards");
-    const cards = Array.from(document.querySelectorAll(".featured-work-card"));
-    const prevButton = document.querySelector(".featured-work-prev");
-    const nextButton = document.querySelector(".featured-work-next");
-    const enableScrollCarousel = true;
+    function createFeaturedWorkScroll() {
+        if (!window.gsap || !window.ScrollTrigger) {
+            return;
+        }
 
-    if (!carousel || !track || cards.length === 0 || !window.gsap) {
-        return;
-    }
-
-    if (window.Draggable) {
-        
-        gsap.registerPlugin(Draggable);
-    }
-
-    if (window.ScrollTrigger) {
         gsap.registerPlugin(ScrollTrigger);
-    }
 
-    let activeIndex = 0;
-    let cardStep = 0;
-    let minX = 0;
-    let dragInstance;
-    let scrollTween;
-    let dragStartIndex = activeIndex;
-    let dragStartX = 0;
+        const featuredTrack = document.querySelector(".featured-work-cards");
+        const featuredSections = gsap.utils.toArray(".featured-work-card");
+        const getNavHeight = () => nav?.offsetHeight || 0;
+        const getFeaturedScrollDistance = () => {
+            const lastSection = featuredSections[featuredSections.length - 1];
 
-    const clamp = gsap.utils.clamp;
+            return lastSection?.offsetLeft || 0;
+        };
 
-    function measureCarousel() {
-        const styles = window.getComputedStyle(track);
-        const gap = parseFloat(styles.columnGap || styles.gap) || 0;
-        cardStep = cards[0].offsetWidth + gap;
-        minX = Math.min(0, carousel.offsetWidth - track.scrollWidth);
-    }
+        if (featuredTrack && featuredSections.length > 1) {
+            gsap.set(featuredTrack, { x: 0 });
 
-    function getNavHeight() {
-        return nav?.offsetHeight || 0;
-    }
-
-    function setButtonState() {
-        if (prevButton) {
-            prevButton.disabled = activeIndex === 0;
-        }
-
-        if (nextButton) {
-            nextButton.disabled = activeIndex === cards.length - 1;
-        }
-    }
-
-    function setActiveIndexFromX(x) {
-        if (!cardStep) {
-            return;
-        }
-
-        activeIndex = clamp(0, cards.length - 1, Math.round(Math.abs(x) / cardStep));
-        setButtonState();
-    }
-
-    function scrollToCard(index) {
-        if (!scrollTween?.scrollTrigger) {
-            return false;
-        }
-
-        measureCarousel();
-        activeIndex = clamp(0, cards.length - 1, index);
-
-        const trigger = scrollTween.scrollTrigger;
-        const progress = cards.length <= 1 ? 0 : activeIndex / (cards.length - 1);
-        const targetScroll = trigger.start + ((trigger.end - trigger.start) * progress);
-
-        gsap.to({ scrollY: window.scrollY }, {
-            scrollY: targetScroll,
-            duration: 0.75,
-            ease: "power3.out",
-            onUpdate() {
-                window.scrollTo(0, this.targets()[0].scrollY);
-            }
-        });
-
-        setButtonState();
-        return true;
-    }
-
-    function goToCard(index) {
-        if (scrollToCard(index)) {
-            return;
-        }
-
-        measureCarousel();
-        activeIndex = clamp(0, cards.length - 1, index);
-
-        gsap.to(track, {
-            x: clamp(minX, 0, -activeIndex * cardStep),
-            duration: 2,
-            delay: 0.1,
-            ease: "power3.out",
-            onUpdate() {
-                if (dragInstance) {
-                    dragInstance.update();
+            gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#featured-work",
+                    start: () => `top top+=${getNavHeight()}`,
+                    pin: true,
+                    scrub: 1,
+                    markers: true,
+                    end: () => "+=6000",
+                    invalidateOnRefresh: true
                 }
-            }
-        });
-
-        setButtonState();
-    }
-
-    function nearestCardIndex() {
-        const x = gsap.getProperty(track, "x");
-        return Math.round(Math.abs(x) / cardStep);
-    }
-
-    function createDrag() {
-        if (!window.Draggable || scrollTween) {
-            return;
+            })
+                .to({}, { duration: 0.04 })
+                .to(featuredTrack, {
+                    x: () => -getFeaturedScrollDistance(),
+                    ease: "none",
+                    duration: 0.92
+                })
+                .to({}, { duration: 0.04 });
         }
-
-        if (dragInstance) {
-            dragInstance.kill();
-        }
-
-        measureCarousel();
-        dragInstance = Draggable.create(track, {
-            type: "x",
-            bounds: {
-                minX,
-                maxX: 0
-            },
-            edgeResistance: 1,
-            dragResistance: 0.015,
-            onPress() {
-                dragStartIndex = activeIndex;
-                dragStartX = gsap.getProperty(track, "x");
-            },
-            onDragEnd() {
-                const draggedDistance = gsap.getProperty(track, "x") - dragStartX;
-                const dragThreshold = cardStep * 0.06;
-
-                if (draggedDistance <= -dragThreshold) {
-                    goToCard(dragStartIndex + 1);
-                    return;
-                }
-
-                if (draggedDistance >= dragThreshold) {
-                    goToCard(dragStartIndex - 1);
-                    return;
-                }
-
-                goToCard(nearestCardIndex());
-            }
-        })[0];
     }
 
-    function createScrollCarousel() {
+    function refreshFeaturedWorkScroll() {
         if (!window.ScrollTrigger) {
-            return false;
-        }
-
-        if (scrollTween) {
-            scrollTween.scrollTrigger?.kill();
-            scrollTween.kill();
-        }
-
-        measureCarousel();
-        const scrollDistance = Math.abs(minX);
-
-        if (scrollDistance <= 0) {
-            return false;
-        }
-
-        scrollTween = gsap.to(track, {
-            x: () => minX,
-            ease: "none",
-            scrollTrigger: {
-                trigger: "#featured-work",
-                start: "bottom bottom",
-                end: () => {
-                    measureCarousel();
-                    return `+=${Math.abs(minX)}`;
-                },
-                pin: true,
-                scrub: 1,
-                invalidateOnRefresh: true,
-                onUpdate() {
-                    setActiveIndexFromX(gsap.getProperty(track, "x"));
-                },
-                onRefresh() {
-                    measureCarousel();
-                }
-            }
-        });
-
-        setButtonState();
-        return true;
-    }
-
-    prevButton?.addEventListener("click", () => goToCard(activeIndex - 1));
-    nextButton?.addEventListener("click", () => goToCard(activeIndex + 1));
-
-    window.addEventListener("resize", () => {
-        if (scrollTween) {
-            ScrollTrigger.refresh();
             return;
         }
 
-        createDrag();
-        goToCard(activeIndex);
-    });
-
-    if (!enableScrollCarousel || !createScrollCarousel()) {
-        createDrag();
-        goToCard(0);
+        requestAnimationFrame(() => ScrollTrigger.refresh());
     }
+
+    function initFeaturedWorkScroll() {
+        createFeaturedWorkScroll();
+        refreshFeaturedWorkScroll();
+        setTimeout(refreshFeaturedWorkScroll, 150);
+    }
+
+    if (document.readyState === "complete") {
+        initFeaturedWorkScroll();
+    } else {
+        window.addEventListener("load", initFeaturedWorkScroll, { once: true });
+    }
+
+    document.fonts?.ready.then(refreshFeaturedWorkScroll);
 });
