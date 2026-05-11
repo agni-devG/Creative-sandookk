@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const featuredSections = gsap.utils.toArray(".featured-work-card");
         const featuredShortScrollQuery = window.matchMedia("(max-width: 768px)");
         const getNavHeight = () => nav?.offsetHeight || 0;
-        const getFeaturedScrollEnd = () => featuredShortScrollQuery.matches ? "+=3000" : "+=6000";
+        const getFeaturedScrollEnd = () => featuredShortScrollQuery.matches ? "+=500" : "+=6000";
         const getFeaturedScrollDistance = () => {
             const lastSection = featuredSections[featuredSections.length - 1];
 
