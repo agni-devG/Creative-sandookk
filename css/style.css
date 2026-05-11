@@ -404,6 +404,9 @@ input{
     height: var(--featured-work-height);
     min-height: var(--featured-work-height);
     max-height: var(--featured-work-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .featured-work-wrapper{
@@ -411,6 +414,7 @@ input{
         url("../assets/images/featured-bg-lines.svg") center / cover no-repeat,
         var(--gradient);
     color: var(--primary-color);
+    width: 100%;
     height: 100%;
     padding: 3.4533vh var(--page-gutter);
     overflow: hidden;
@@ -1216,6 +1220,7 @@ input{
     .featured-work-wrapper{
         height: 100%;
         padding: 2.9605vh var(--page-gutter) 3.9473vh;
+        justify-content: center;
     }
 
     .featured-work-top{
@@ -1235,6 +1240,7 @@ input{
 
     .featured-work-carousel{
         height: 46vh;
+        flex: 0 0 auto;
     }
 
     .featured-work-card{
@@ -1582,6 +1588,7 @@ input{
     .featured-work-wrapper{
         height: 100%;
         padding: 3.6185vh 3.756vw 4.6053vh;
+        justify-content: flex-start;
     }
 
     .featured-work-top{
