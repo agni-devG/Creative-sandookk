@@ -1,0 +1,9 @@
+@import url("./style.css");
+@import url("./components/head.css");
+@import url("./components/nav.css");
+@import url("./components/banner.css");
+@import url("./components/footer.css");
+@import url("./pages/home.css");
+@import url("./pages/services.css");
+@import url("./pages/work.css");
+@import url("./pages/contact.css");
