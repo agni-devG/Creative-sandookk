@@ -1,1 +1,327 @@
-/* Services page styles currently live in ../style.css. */
+.services-section{
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    /* height: 100vh; */
+}
+
+.services-wrapper{
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.service-card{
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    padding-inline: var(--page-gutter);
+    padding-top: 8vh;
+    padding-bottom: 0;
+}
+
+.service-card-overlay{
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background: rgba(0, 0, 0, 0.9);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.service-content{
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+
+    align-items: end;
+    margin-bottom: 24px;
+}
+
+.service-head{
+    font-family: var(--head-font);
+    color: var(--primary-color);
+    font-size: 15vw;
+    font-weight: 900;
+    line-height: 62%;
+    text-transform: uppercase;
+    margin:0 ;
+}
+
+.service-p{
+    font-size: 16px;
+    max-width: 50ch;
+    color: var(--primary-color);
+    font-size: var(--para-desk);
+}
+
+.service-video{
+    position: relative;
+    z-index: 1;
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.service-video-embed{
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.service-video-embed iframe,
+.service-video-embed wistia-player,
+.service-video-embed .wistia_embed,
+.service-video-embed .wistia_responsive_wrapper,
+.service-video-embed > *{
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.service-video-placeholder{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.service-video.is-video-active .service-video-embed{
+    display: block;
+}
+
+.service-video.is-video-active .service-video-placeholder{
+    display: none;
+}
+
+
+/* service colors */
+
+.sm-service{
+    background-color:#FF6145 ;
+}
+
+.website-service{
+    background-color: #FFC05C;
+}
+
+.ads-service{
+    background-color: #D2FF58;
+}
+
+.packaging-service{
+    background-color: #78FFC0;
+}
+
+@media (min-width: 1600px){
+    .service-card{
+        padding-top: 6.5vh;
+    }
+
+    .service-head{
+        font-size: 14vw;
+    }
+
+    .service-content{
+        margin-bottom: 3vh;
+    }
+
+    .service-p{
+        max-width: 48ch;
+    }
+}
+
+@media (max-width: 1024px){
+    .services-section{
+        margin-bottom: 0;
+    }
+
+    .services-wrapper{
+        height: 100svh;
+        overflow: hidden;
+        margin-bottom: 6vh;
+    }
+
+    .service-card{
+        position: absolute;
+        inset: 0;
+        height: 100svh;
+        min-height: 0;
+        padding: 3.8vh var(--page-gutter) 5.4vh;
+    }
+
+    .service-card-overlay{
+        display: block;
+    }
+
+    .service-content{
+        display: block;
+        margin-bottom: 6.2vh;
+    }
+
+    .service-head{
+        font-size: 22vw;
+        line-height: 0.82;
+    }
+
+    .service-p{
+        max-width: 78ch;
+        margin-top: 5.2vh;
+        font-size: 1.8183vw;
+        line-height: 1.08;
+    }
+
+    .service-p::after{
+        content: "Explore Projects";
+        display: block;
+        width: fit-content;
+        margin-top: 2.2vh;
+        color: var(--primary-color);
+        font-weight: 900;
+        text-decoration: underline;
+    }
+
+    .service-video{
+        flex: 1 1 auto;
+        height: auto;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .service-video-placeholder{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .sm-service .service-video,
+    .ads-service .service-video{
+        width: 94%;
+        margin: 0 auto;
+    }
+
+    .website-service .service-video{
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .packaging-service .service-video{
+        width: 96%;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px){
+    .page-hero{
+        min-height: auto;
+        padding-top: 8vh;
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .page-hero h1{
+        font-size: 31vw;
+        line-height: 0.82;
+    }
+
+    .page-hero p{
+        max-width: 82vw;
+        margin: 4.2vh auto 0;
+        font-size: 3.2865vw;
+        line-height: 1.08;
+        text-align: center;
+    }
+
+    .service-card{
+        min-height: auto;
+        padding: 3.1vh var(--page-gutter) 4.3vh;
+    }
+
+    .service-content{
+        margin-bottom: 5vh;
+    }
+
+    .service-head{
+        font-size: 23vw;
+        line-height: 0.78;
+    }
+
+    .service-p{
+        max-width: none;
+        margin-top: 4.2vh;
+        font-size: 2.3473vw;
+        line-height: 1.08;
+    }
+
+    .service-p::after{
+        margin-top: 1.6vh;
+    }
+}
+
+@media (max-width: 470px){
+    .services-section{
+        margin-bottom: 0;
+    }
+
+    .page-main{
+        padding-top: var(--nav-height);
+    }
+
+    .page-hero{
+        padding: 6.2vh 2.8167vw 7vh;
+        width: 100%;
+        min-height: auto;
+    }
+
+    .page-hero h1{
+        font-size: 44vw;
+        line-height: 0.82;
+    }
+
+    .page-hero p{
+        max-width: 86vw;
+        margin-top: 4.4vh;
+        font-size: 3.756vw;
+        line-height: 1.08;
+    }
+
+    .service-card{
+        padding: 2.7vh 3.756vw 3.9vh;
+    }
+
+    .service-content{
+        margin-bottom: 4.4vh;
+    }
+
+    .service-head{
+        font-size: 24vw;
+        line-height: 0.78;
+    }
+
+    .service-p{
+        margin-top: 3.5vh;
+        font-size: 3.2865vw;
+        line-height: 1.08;
+    }
+
+    .service-p::after{
+        margin-top: 1.4vh;
+    }
+
+    .sm-service .service-video,
+    .ads-service .service-video{
+        width: 100%;
+    }
+
+    .website-service .service-video{
+        width: 100%;
+    }
+
+    .packaging-service .service-video{
+        width: 100%;
+    }
+}

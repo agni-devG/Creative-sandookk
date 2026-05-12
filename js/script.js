@@ -100,6 +100,80 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function initNavScrollAnimation() {
+        if (!nav || !window.gsap) {
+            return;
+        }
+
+        const navHideScrollDistance = 120;
+        const navRevealScrollUpDistance = 120;
+        let lastScrollY = window.scrollY;
+        let scrollUpDistance = 0;
+        let navHidden = false;
+
+        gsap.set(nav, { yPercent: 0 });
+
+        function hideNav() {
+            if (navHidden || document.body.classList.contains("phone-menu-open")) {
+                return;
+            }
+
+            navHidden = true;
+            gsap.killTweensOf(nav);
+            gsap.to(nav, {
+                yPercent: -110,
+                duration: 1,
+                ease: "power3.out"
+            });
+        }
+
+        function showNav() {
+            if (!navHidden) {
+                return;
+            }
+
+            navHidden = false;
+            gsap.killTweensOf(nav);
+            gsap.to(nav, {
+                yPercent: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+        }
+
+        function handleNavScroll() {
+            const currentScrollY = window.scrollY;
+            const scrollDelta = currentScrollY - lastScrollY;
+            const pastHidePoint = currentScrollY > navHideScrollDistance;
+
+            if (!pastHidePoint) {
+                scrollUpDistance = 0;
+                showNav();
+                lastScrollY = currentScrollY;
+                return;
+            }
+
+            if (scrollDelta > 0) {
+                scrollUpDistance = 0;
+                hideNav();
+            } else if (scrollDelta < 0) {
+                scrollUpDistance += Math.abs(scrollDelta);
+
+                if (scrollUpDistance >= navRevealScrollUpDistance) {
+                    showNav();
+                }
+            }
+
+            lastScrollY = currentScrollY;
+        }
+
+        window.addEventListener("scroll", handleNavScroll, { passive: true });
+        window.addEventListener("resize", handleNavScroll);
+        handleNavScroll();
+    }
+
+    initNavScrollAnimation();
+
     const brandBands = Array.from(document.querySelectorAll(".brands-band"));
 
     brandBands.forEach((band) => {
@@ -121,7 +195,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const featuredTrack = document.querySelector(".featured-work-cards");
         const featuredSections = gsap.utils.toArray(".featured-work-card");
         const featuredShortScrollQuery = window.matchMedia("(max-width: 768px)");
-        const getNavHeight = () => nav?.offsetHeight || 0;
         const getFeaturedScrollEnd = () => featuredShortScrollQuery.matches ? "+=750" : "+=6000";
         const getFeaturedScrollDistance = () => {
             const lastSection = featuredSections[featuredSections.length - 1];
@@ -135,11 +208,12 @@ document.addEventListener("DOMContentLoaded", () => {
             gsap.timeline({
                 scrollTrigger: {
                     trigger: "#featured-work",
-                    start: () => `top top+=${getNavHeight()}`,
+                    start: "top top",
                     pin: true,
                     scrub: 1,
                     end: getFeaturedScrollEnd,
-                    invalidateOnRefresh: true
+                    invalidateOnRefresh: true,
+                    markers: true
                 }
             })
                 .to({}, { duration: 0.04 })

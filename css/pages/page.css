@@ -1,0 +1,51 @@
+.page-main{
+    padding-top: var(--nav-height);
+}
+
+.page-hero{
+    width: calc(100vw - (var(--page-gutter) * 2));
+    margin: 0 auto;
+    min-height: 95vh;
+    padding: 10.9999vh 0 7.0001vh;
+    align-items: end;
+    gap: 5vw;
+}
+
+.page-hero h1{
+    margin: 0;
+    color: var(--secondary-color);
+    font-family: var(--head-font), Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    font-size: var(--hero-heading-desk);
+    font-weight: 900;
+    line-height: 78%;
+    text-transform: uppercase;
+}
+
+.page-hero p{
+    color: var(--muted-text);
+    font-size:var(--para-desk);
+    line-height: 118%;
+    text-align: right;
+}
+
+@media (max-width: 767px){
+    .page-hero{
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-top: 8vh;
+    }
+}
+
+@media (max-width: 470px){
+    .page-hero{
+        padding-top: 7vh;
+    }
+
+    .page-hero h1{
+        font-size: 25vw;
+    }
+
+    .page-hero p{
+        font-size: 3.756vw;
+    }
+}

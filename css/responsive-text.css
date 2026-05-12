@@ -1,0 +1,14 @@
+@media (min-width: 471px){
+    body,
+    body p,
+    .how-content p,
+    .featured-work-info p,
+    .banner-content p,
+    .footer-copy,
+    .footer-bottom,
+    .address p,
+    .page-hero p,
+    .service-p{
+        font-size: 16px;
+    }
+}

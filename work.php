@@ -1,6 +1,7 @@
 <?php
 $pageTitle = 'Work | Creative Sandookk';
 $activePage = 'work';
+$pageStyles = ['css/pages/page.css', 'css/pages/work.css'];
 include __DIR__ . '/components/head.php';
 ?>
 <body>
