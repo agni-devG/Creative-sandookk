@@ -1,6 +1,7 @@
 <?php
 $pageTitle = 'Creative Sandookk';
 $activePage = 'home';
+$pageScripts = ['js/home.js'];
 include __DIR__ . '/components/head.php';
 ?>
 <body>
