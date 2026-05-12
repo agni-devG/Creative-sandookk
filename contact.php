@@ -8,35 +8,41 @@ include __DIR__ . '/components/head.php';
     <main class="page-main">
         <?php include __DIR__ . '/components/nav.php'; ?>
 
-        <section class="page-hero">
+        <section class="page-hero contact-hero">
             <div>
-                <p class="page-kicker">Contact</p>
-                <h1>Grow With Us</h1>
-            </div>
-            <div class="page-hero-panel">
-                <h2>Tell us what you are building and where growth feels stuck.</h2>
-                <p>We will look at the brand, the offer, the funnel, and the creative gaps before recommending a direction.</p>
-                <a class="btn nav-btn" href="tel:+919810770192">Call Us</a>
+                <h1 class="page-hero-head"><span>Talk</span> <span>To Us</span></h1>
+                <p class="page-hero-para">Lorem ipsum dolor sit amet consectetur. Habitanti iaculis posuere nisl vestibulum mattis aliquam magna felis. Sem ipsum velit posuere mattis. Platea scelerisque libero lacus ultrices. Penatibus ut viverra nunc tempus interdum in elit.</p>
+                <a class="btn contact-hero-btn" href="#contact-form">Schedule A Call</a>
             </div>
         </section>
 
-        <section class="page-section">
-            <h2 class="section-title">Start Here</h2>
-            <div class="contact-grid">
-                <div class="contact-card">
-                    <h3>Creative Sandookk</h3>
-                    <p>&amp; Work Co-working, RPS 12th Avenue, 12/6 Milestone, Main, Mathura Rd, Faridabad, Haryana 121003</p>
-                    <p class="contact-phone"><a href="tel:+919810770192">+91 9810770192</a></p>
-                </div>
-                <form action="" class="contact-page-form">
-                    <input type="text" placeholder="Your Name">
-                    <input type="email" placeholder="Your Email Id">
-                    <input type="text" placeholder="Brand / Company">
-                    <textarea placeholder="What do you want to grow?"></textarea>
-                    <button class="btn nav-btn" type="submit">Book A Call with Us</button>
-                </form>
-            </div>
+        <section class="contact-form-section" id="contact-form">
+            <form action="" class="contact-page-form">
+                <label>
+                    <span>Name*</span>
+                    <input type="text" name="name" autocomplete="name">
+                </label>
+                <label>
+                    <span>E-Mail*</span>
+                    <input type="email" name="email" autocomplete="email">
+                </label>
+                <label>
+                    <span>Company Name*</span>
+                    <input type="text" name="company" autocomplete="organization">
+                </label>
+                <label>
+                    <span>Industry*</span>
+                    <input type="text" name="industry">
+                </label>
+                <label class="contact-message-field">
+                    <span>Brief Overview Of The Project *</span>
+                    <textarea name="project"></textarea>
+                </label>
+                <button class="btn contact-submit" type="submit">Give Me A Call</button>
+            </form>
         </section>
+
+        <?php include __DIR__ . '/components/banner.php'; ?>
 
         <?php include __DIR__ . '/components/footer.php'; ?>
     </main>

@@ -1,4 +1,179 @@
-.page-section{
+.contact-hero{
+    min-height: auto;
+    padding-top: 7.5vh;
+    padding-bottom: 18vh;
+}
+
+.contact-hero h1{
+    font-size: clamp(156px, 18.8vw, 360px);
+    line-height: 0.82;
+    white-space: nowrap;
+}
+
+.contact-hero p{
+    max-width: 70ch;
+    margin-top: 5.2vh;
+    color: var(--text-color);
+    text-align: left;
+}
+
+.contact-hero-btn,
+.contact-submit{
+    margin-top: 2vh;
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    box-shadow: 0 0.55vw 1.52vw rgba(255, 253, 130, 0.18);
+}
+
+.contact-form-section{
     width: calc(100vw - (var(--page-gutter) * 2));
-    margin: 0 auto;
+    margin: 0 auto 20vh;
+}
+
+.contact-page-form{
+    display: grid;
+    gap: 3.6vh;
+}
+
+.contact-page-form label{
+    display: block;
+}
+
+.contact-page-form span{
+    display: block;
+    margin-bottom: 2.2vh;
+    color: var(--text-color);
+    font-weight: 700;
+    line-height: 1;
+}
+
+.contact-page-form input,
+.contact-page-form textarea{
+    display: block;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.82);
+    border-radius: 0;
+    background: transparent;
+    color: var(--text-color);
+    font: inherit;
+    font-size: 16px;
+    outline: none;
+}
+
+.contact-page-form input{
+    height: 3.4vh;
+}
+
+.contact-page-form textarea{
+    min-height: 20vh;
+    resize: vertical;
+}
+
+.contact-submit{
+    justify-self: start;
+}
+
+@media (max-width: 1024px){
+    .contact-hero{
+        padding-top: 4vh;
+        padding-bottom: 7vh;
+    }
+
+    .contact-hero h1{
+        font-size: 39vw;
+        line-height: 0.82;
+        white-space: normal;
+    }
+
+    .contact-hero h1 span{
+        display: block;
+    }
+
+    .contact-hero p{
+        max-width: 82vw;
+        margin: 4.2vh 0 0;
+        font-size: 3.2865vw;
+        line-height: 1.08;
+        text-align: left;
+    }
+
+    .contact-hero-btn{
+        margin-top: 2.4vh;
+    }
+
+    .contact-form-section{
+        margin-bottom: 17vh;
+    }
+
+    .contact-page-form{
+        gap: 2.7vh;
+    }
+
+    .contact-page-form span{
+        margin-bottom: 1.7vh;
+        font-size: 16px;
+    }
+
+    .contact-page-form textarea{
+        min-height: 17vh;
+    }
+}
+
+@media (max-width: 470px){
+    .contact-hero{
+        width: calc(100vw - (var(--page-gutter) * 2));
+        padding-top: 5vh;
+        padding-bottom: 6.8vh;
+    }
+
+    .contact-hero h1{
+        font-size: 44vw;
+        line-height: 0.82;
+    }
+
+    .contact-hero p{
+        max-width: 100%;
+        margin-top: 4.4vh;
+        font-size: 3.756vw;
+        text-align: left;
+        line-height: 1.08;
+    }
+
+    .contact-hero-btn{
+        display: flex;
+        width: fit-content;
+        margin: 2.2vh 0 0;
+        font-size: 14px;
+    }
+
+    .contact-submit{
+        font-size: 14px;
+    }
+
+    .contact-form-section{
+        margin-bottom: 15vh;
+    }
+
+    .contact-page-form{
+        gap: 3.3vh;
+    }
+
+    .contact-page-form span{
+        margin-bottom: 2vh;
+        font-size: 14px;
+    }
+
+    .contact-page-form input{
+        height: 3.9vh;
+    }
+
+    .contact-page-form input,
+    .contact-page-form textarea{
+        font-size: 14px;
+    }
+
+    .contact-page-form textarea{
+        min-height: 17vh;
+    }
 }

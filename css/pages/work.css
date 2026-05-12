@@ -157,7 +157,7 @@
 
     .work-card-bottom{
         min-height: 2.8vw;
-        padding: 0.65vw 0.8vw 0.7vw;
+        padding: 2vw 0.8vw;
     }
 
     .work-card-overlay{
@@ -203,7 +203,7 @@
 
     .work-card-bottom{
         min-height: 5.6vw;
-        padding: 1.25vw 1.6vw 1.35vw;
+        padding: 3.5vw 2.5vw;
         gap: 2vw;
     }
 
