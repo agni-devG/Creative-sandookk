@@ -4,11 +4,11 @@
     padding-bottom: 18vh;
 }
 
-.contact-hero h1{
+/* .contact-hero h1{
     font-size: clamp(156px, 18.8vw, 360px);
     line-height: 0.82;
     white-space: nowrap;
-}
+} */
 
 .contact-hero p{
     max-width: 70ch;

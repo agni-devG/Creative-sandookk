@@ -4,11 +4,11 @@
     padding-bottom: 8.5vh;
 }
 
-.work-gallery-hero h1{
+/* .work-gallery-hero h1{
     font-size: clamp(148px, 18.8vw, 360px);
     line-height: 0.82;
     white-space: nowrap;
-}
+} */
 
 .work-gallery-hero p{
     max-width: 63ch;
@@ -134,15 +134,15 @@
         padding-bottom: 10.5vh;
     }
 
-    .work-gallery-hero h1{
+    /* .work-gallery-hero h1{
         font-size: 43vw;
         line-height: 0.88;
         white-space: normal;
-    }
+    } */
 
-    .work-gallery-hero h1 span{
+    /* .work-gallery-hero h1 span{
         display: block;
-    }
+    } */
 
     .work-gallery-hero p{
         max-width: 67ch;
@@ -184,10 +184,10 @@
         padding-bottom: 4.8vh;
     }
 
-    .work-gallery-hero h1{
+    /* .work-gallery-hero h1{
         font-size: 32vw;
         line-height: 0.9;
-    }
+    } */
 
     .work-gallery-hero p{
         max-width: none;
