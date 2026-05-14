@@ -80,11 +80,11 @@
         padding-bottom: 7vh;
     }
 
-    .contact-hero h1{
+    /* .contact-hero h1{
         font-size: 39vw;
         line-height: 0.82;
         white-space: normal;
-    }
+    } */
 
     .contact-hero h1 span{
         display: block;
@@ -127,10 +127,10 @@
         padding-bottom: 6.8vh;
     }
 
-    .contact-hero h1{
+    /* .contact-hero h1{
         font-size: 44vw;
         line-height: 0.82;
-    }
+    } */
 
     .contact-hero p{
         max-width: 100%;

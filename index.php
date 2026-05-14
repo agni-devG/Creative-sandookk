@@ -5,17 +5,42 @@ $pageScripts = ['js/home.js'];
 include __DIR__ . '/components/head.php';
 ?>
 <body>
+    <?php include __DIR__ . '/components/preloader.php'; ?>
+
     <main>
         <?php include __DIR__ . '/components/nav.php'; ?>
+
+        <script src="https://fast.wistia.com/player.js" async></script>
+        <script src="https://fast.wistia.com/embed/qghbf98ydl.js" async type="module"></script>
+        <script src="https://fast.wistia.com/embed/lobjfonh0l.js" async type="module"></script>
+        <style>
+            wistia-player[media-id='qghbf98ydl']:not(:defined) {
+                background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/qghbf98ydl/swatch');
+                display: block;
+                filter: blur(5px);
+                padding-top: 56.25%;
+            }
+
+            wistia-player[media-id='lobjfonh0l']:not(:defined) {
+                background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/lobjfonh0l/swatch');
+                display: block;
+                filter: blur(5px);
+                padding-top: 56.25%;
+            }
+        </style>
 
         <section id="hero">
            <div class="hero-desk">
                 <div class="hero-line hero-top">
                     <h1>Built For</h1>
-                    <div class="hero-video-space hero-video-top" aria-label="Video placeholder"></div>
+                    <div class="hero-video-space hero-video-top">
+                        <wistia-player media-id="qghbf98ydl" aspect="1.7777777777777777"></wistia-player>
+                    </div>
                 </div>
                 <div class="hero-line hero-bottom">
-                    <div class="hero-video-space hero-video-bottom" aria-label="Video placeholder"></div>
+                    <div class="hero-video-space hero-video-bottom">
+                        <wistia-player media-id="lobjfonh0l" aspect="1.7777777777777777"></wistia-player>
+                    </div>
                     <h1>Growth</h1>
                 </div>
            </div>

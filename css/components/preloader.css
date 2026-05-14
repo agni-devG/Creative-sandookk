@@ -1,0 +1,85 @@
+.is-preloader-visible{
+    overflow: hidden;
+}
+
+.preloader{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999999;
+    background: var(--background-color);
+    pointer-events: auto;
+}
+
+.preload-wrapper{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.preload-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.preload-counter{
+    --dial-row-height: 1em;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    /* width: 0.9em; */
+    margin: 0;
+    transform: translateY(0.03em);
+    color: var(--text-color);
+    font-family: "forma-djr-mono", sans-serif;
+    font-size: 8vw;
+    font-weight: 600;
+    font-style: normal;
+    line-height: var(--dial-row-height);
+}
+
+.preload-dial-window{
+    display: block;
+    overflow: hidden;
+    /* padding: 0.12em 0; */
+    height: var(--dial-row-height);
+}
+
+.preload-dial{
+    display: flex;
+    flex-direction: column;
+}
+
+.preload-dial-value,
+.preload-percent{
+    display: block;
+    height: var(--dial-row-height);
+    line-height: var(--dial-row-height);
+}
+
+.preload-loader{
+    width: clamp(6rem, 25vw, 20rem);
+    height: 0.18rem;
+    background: var(--secondary-color);
+    transform: scaleX(0);
+    transform-origin: left center;
+}

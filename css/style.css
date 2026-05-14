@@ -6,6 +6,13 @@ html{
     scroll-behavior: smooth;
     background: var(--background-color);
     overflow-x: clip;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar{
+    display: none;
 }
 
 body{
@@ -170,6 +177,9 @@ input{
 }
 
 .hero-desk{
+    --hero-title-width: 48.8vw;
+    --hero-line-gap: 1.3vw;
+    --hero-video-width: calc(100vw - var(--page-gutter) - var(--hero-title-width) - var(--hero-line-gap));
     width: calc(100vw - (var(--page-gutter) * 2));
     margin: 0 auto;
     padding: 8.8404vh 0;
@@ -180,8 +190,8 @@ input{
 
 .hero-line{
     display: flex;;
-    align-items: stretch;
-    gap: 1.3vw;
+    align-items: center;
+    gap: var(--hero-line-gap);
 }
 
 .hero-top{
@@ -205,6 +215,7 @@ input{
     text-transform: uppercase;
     white-space: nowrap;
     line-height:80%;
+    flex: 0 0 var(--hero-title-width);
 }
 
 .hero-bottom h1{
@@ -212,53 +223,43 @@ input{
 }
 
 .hero-video-space{
-    flex: 1 1 auto;
-    align-self: stretch;
-    width: 100%;
+    flex: 0 0 var(--hero-video-width);
+    align-self: center;
+    width: var(--hero-video-width);
     height: auto;
+    aspect-ratio: 16 / 9;
     min-height: 0;
     min-width: 0;
     border-radius: 1.2vw;
-    border: 0.07vw solid rgba(255, 255, 255, 0.12);
-    background:
-        linear-gradient(135deg, rgba(255, 253, 130, 0.08), rgba(255, 255, 255, 0.02)),
-        rgba(255, 255, 255, 0.04);
+    border: 0;
+    background: rgba(255, 255, 255, 0.04);
     position: relative;
     overflow: hidden;
-    margin-bottom: var(--desktop-space-30);
+    margin-bottom: 0;
+    margin-top: -5vh;
 }
 
-.hero-video-space video{
+.hero-video-space video,
+.hero-video-space wistia-player{
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.hero-video-space::before{
-    content: "";
+.hero-video-space wistia-player{
     position: absolute;
-    inset: 1vw;
-    border-radius: 0.8vw;
-    border: 0.07vw dashed rgba(255, 255, 255, 0.26);
-}
-
-.hero-video-space::after{
-    content: "Video Space";
-    position: absolute;
-    left: 1.8vw;
-    bottom: 2.1999vh;
-    color: rgba(255, 255, 255, 0.58);
-    font-size: 0.8vw;
-    font-weight: 700;
-    text-transform: uppercase;
+    inset: 0;
 }
 
 .hero-video-top{
     justify-self: stretch;
+    margin-right: calc(var(--page-gutter) * -1);
+    border-radius: 1.2vw 0 0 1.2vw;
 }
 
 .hero-video-bottom{
+    margin-left: calc(var(--page-gutter) * -1);
     border-radius: 0 1.2vw 1.2vw 0;
 }
 
@@ -290,7 +291,7 @@ input{
     z-index: 2;
     width: fit-content;
     margin: 0 auto;
-    padding: 37.9999vh 0;
+    padding: 0 0 37.9999vh 0;
     text-align: center;
     font-family:var(--para-font) ;
 
@@ -893,6 +894,8 @@ input{
     }
 
     .hero-desk{
+        --hero-title-width: auto;
+        --hero-video-width: calc(100vw - (var(--page-gutter) * 2));
         padding: 3.9473vh 0 0;
         gap: 3.3766vw;
     }
@@ -907,6 +910,7 @@ input{
         line-height: 0.86;
         white-space: normal;
         text-align: center;
+        flex-basis: auto;
     }
 
     .hero-bottom{
@@ -920,17 +924,16 @@ input{
 
     .hero-video-bottom{
         display: block;
-        height: 42vw;
-        margin: 4.2763vh 1.2986vw 0;
-        border-radius: 2.3377vw;
-        background-image: url("../assets/images/banner-img.webp");
-        background-size: cover;
-        background-position: center;
+        width: 100vw;
+        flex-basis: auto;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        margin: 4.2763vh calc(var(--page-gutter) * -1) 0;
+        border-radius: 0;
     }
 
-    .hero-video-space::before,
-    .hero-video-space::after{
-        display: none;
+    .hero-video-space wistia-player{
+        border-radius: 0;
     }
 
     .how-we-help-wrapper{
@@ -1296,9 +1299,8 @@ input{
     }
 
     .hero-video-bottom{
-        height: 24.671vh;
-        margin: 2.9605vh 0 0;
-        border-radius: 1.8778vw;
+        margin-top: 2.9605vh;
+        border-radius: 0;
     }
 
     .how-we-help-wrapper{

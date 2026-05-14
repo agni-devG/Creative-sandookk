@@ -2,6 +2,7 @@
 @import url("./style.css");
 @import url("./components/head.css");
 @import url("./components/nav.css");
+@import url("./components/preloader.css");
 @import url("./components/banner.css");
 @import url("./components/footer.css");
 @import url("./pages/home.css");

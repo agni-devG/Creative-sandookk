@@ -18,7 +18,7 @@ include __DIR__ . '/components/head.php';
                     </div>
                 </section>
 
-                <div class="service-card sm-service">
+s                <div class="service-card sm-service">
                     <div class="service-card-overlay"></div>
                     <div class="service-content">
                         <h2 class="service-head">Social Media</h2>

@@ -1,10 +1,12 @@
 window.addEventListener("load", () => {
+    // Stop early when the animation libraries are not available.
     if (!window.gsap || !window.ScrollTrigger) {
         return;
     }
 
     gsap.registerPlugin(ScrollTrigger);
 
+    // Collect the services stack elements and tune the card motion timing.
     const section = document.querySelector(".services-section");
     const wrapper = document.querySelector(".services-wrapper");
     const hero = wrapper?.querySelector(".services-stack-hero");
@@ -18,12 +20,14 @@ window.addEventListener("load", () => {
         return;
     }
 
+    // Place the hero behind the service cards before the scroll animation starts.
     gsap.set(hero, {
         zIndex: 1,
         yPercent: 0,
         rotation: 0
     });
 
+    // Stack every service card below the viewport so each one can slide upward.
     cards.forEach((card, index) => {
         gsap.set(card, {
             zIndex: index + 2,
@@ -35,6 +39,7 @@ window.addEventListener("load", () => {
 
     gsap.set(".service-card-overlay", { opacity: 0 });
 
+    // Pin the services wrapper and scrub through the stacked card reveal on scroll.
     const timeline = gsap.timeline({
         scrollTrigger: {
             id: "services-stack",
@@ -48,6 +53,7 @@ window.addEventListener("load", () => {
         }
     });
 
+    // Animate each card into place, straighten it, and dim the card underneath.
     cards.forEach((card, index) => {
         timeline.to(card, {
             yPercent: 0,
@@ -77,6 +83,7 @@ window.addEventListener("load", () => {
         });
     });
 
+    // Recalculate trigger positions after layout-affecting assets finish loading.
     requestAnimationFrame(() => ScrollTrigger.refresh());
     document.fonts?.ready.then(() => ScrollTrigger.refresh());
 });

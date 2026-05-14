@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Find the shared navigation elements used by desktop and phone layouts.
     const nav = document.querySelector("#nav");
     const menuButton = document.querySelector(".phone-menu-btn");
     const phoneMenu = document.querySelector(".phone-nav-menu");
     const phoneNavQuery = window.matchMedia("(max-width: 424px)");
 
     if (nav && menuButton && phoneMenu) {
+        // Set accessibility state for the slide-in phone menu.
         menuButton.setAttribute("aria-haspopup", "dialog");
         menuButton.setAttribute("aria-expanded", "false");
 
@@ -16,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
             gsap.set(phoneMenu, { x: "-100vw" });
         }
 
+        // Open the phone menu and animate the panel plus its links into view.
         function animateMenuOpen() {
             menuOpen = true;
             phoneMenu.setAttribute("aria-hidden", "false");
@@ -46,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }, "-=0.32");
         }
 
+        // Close the phone menu, keeping the non-GSAP fallback usable.
         function animateMenuClose() {
             menuOpen = false;
             menuButton.setAttribute("aria-expanded", "false");
@@ -69,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
+        // Toggle the phone menu from the hamburger button.
         menuButton.addEventListener("click", () => {
             if (menuOpen) {
                 animateMenuClose();
@@ -81,12 +86,14 @@ document.addEventListener("DOMContentLoaded", () => {
         closeButton?.addEventListener("click", animateMenuClose);
         phoneLinks.forEach((link) => link.addEventListener("click", animateMenuClose));
 
+        // Let keyboard users dismiss the phone menu with Escape.
         window.addEventListener("keydown", (event) => {
             if (event.key === "Escape" && menuOpen) {
                 animateMenuClose();
             }
         });
 
+        // Close the phone menu when the viewport leaves the phone breakpoint.
         function handlePhoneNavChange(event) {
             if (!event.matches && menuOpen) {
                 animateMenuClose();
@@ -100,6 +107,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+
+    // 
+
+
+
+
+
+    // Hide the nav while scrolling down and reveal it after enough upward scroll.
     function initNavScrollAnimation() {
         if (!nav || !window.gsap) {
             return;
@@ -113,6 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         gsap.set(nav, { yPercent: 0 });
 
+        // Move the nav offscreen unless the phone menu is currently open.
         function hideNav() {
             if (navHidden || document.body.classList.contains("phone-menu-open")) {
                 return;
@@ -127,6 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
+        // Bring the nav back into view.
         function showNav() {
             if (!navHidden) {
                 return;
@@ -141,6 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
+        // Track scroll direction and thresholds to decide whether nav should show.
         function handleNavScroll() {
             const currentScrollY = window.scrollY;
             const scrollDelta = currentScrollY - lastScrollY;
@@ -174,3 +192,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initNavScrollAnimation();
 });
+
